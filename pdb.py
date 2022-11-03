@@ -140,8 +140,16 @@ class File:
 	
 	def getIDCode(self, f):
 		for line in f.readlines():
-			if line[0:6] == 'HEADER':
-				return line[62:66]
+		#	if line[0:6] == 'HEADER':
+#				return line[62:66]
+                        pdbid=''
+                        line_strip=line.strip()
+                        line_split=line_strip.split('\t')
+                        if len(line_split)>1:
+                            if line_split[0]=='HEADER':
+                                pdbid=line_split[-1]
+#                                print pdbid, "pdbid"
+                                return pdbid
 		return None
 
 def sequence(residues, chain_ids=['A',' ']):
