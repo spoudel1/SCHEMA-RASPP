@@ -18,7 +18,7 @@ Endelman, J. et al., "Site-directed protein recombination as a shortest-path pro
 
 To run this version follow the steps:
 1) Download/clone the folder locally to your computer
-2) copy the run_schema.sh from the folder to your working directory. Make sure your working directory has atleast two other files: 1) prealinged file that includes all the sequences that you want to align where the first seq is your reference sequence. 2) pdb file. Pdb file name has to match the seq in the sequence file
+2) copy the run_schema.sh from the folder to your working directory. Make sure your working directory has atleast two other files: 1) prealinged file that includes all the sequences that you want to align where the first seq is your reference sequence. 2) pdb file. Pdb file name has to match the ref seq name in the sequence file
 3) update SCHEMADIR path in run_schema.sh to point to the folder where you downloaded/cloned the program
 4) to run cal run_schema.sh and it takes three inputs: 1)prealigned seq file 2) pdb file 3) number of crosspoints you want. see eg as below
      ./run_schema.sh prealigned.txt model.pdb 5
