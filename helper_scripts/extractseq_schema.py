@@ -7,7 +7,8 @@ import statistics
 xofile=open(sys.argv[1],'r')
 msafile=open(sys.argv[2],'r')
 chimerafile=open(sys.argv[3],'r')
-outputfile=open(sys.argv[4],'w')
+#outputfile=open(sys.argv[4],'w')
+outputfile=open("Chimera_sequences.fasta",'w')
 crosspoint=[]
 msa={}
 msa_order={}

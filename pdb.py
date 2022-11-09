@@ -143,12 +143,12 @@ class File:
 		#	if line[0:6] == 'HEADER':
 #				return line[62:66]
                         pdbid=''
-                        line_strip=line.strip()
-                        line_split=line_strip.split('\t')
+                        line_split=line.strip().split()
+                     #   line_split=line_strip.split('\t')
                         if len(line_split)>1:
                             if line_split[0]=='HEADER':
                                 pdbid=line_split[-1]
-#                                print pdbid, "pdbid"
+                          #      print pdbid, "pdbid"
                                 return pdbid
 		return None
 
