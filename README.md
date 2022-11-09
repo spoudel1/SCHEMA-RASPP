@@ -27,6 +27,6 @@ To run this version follow the steps:
 
     5 9 13 107 111
     
-6) run run_schema.txt to get the chimera sequences. You will need to pass the file containing the best crossover points (e.g., xo.txt)
+6) run run_schema.sh to get the chimera sequences. You will need to pass the file containing the best crossover points (e.g., xo.txt)
     ./run_schema.sh xo.txt
 7) Step 6 will create two files: 1) energies.txt - this will contain all possible combination of chimeras and their E and m score, 2) Chimera_sequences.fasta - this contains the chimera sequence
