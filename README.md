@@ -24,7 +24,9 @@ To run this version follow the steps:
      ./run_schema.sh prealigned.txt model.pdb 5
 4) Step 4 will give you three files: 1) clustal.aln (this the file containing aligned sequences in clustal format), 2) contacts.txt (this contains contacts positions), 3) opt.txt - this contains the crossover points and their E and m scores. 
 5) Pick the best crossover points from opt.txt file that you want to create the library from and save it to a file (say it's called xo.txt) so the xo.txt should only have one row as shown below if you picked 5 crossover points
+
     5 9 13 107 111
+    
 6) run run_schema.txt to get the chimera sequences. You will need to pass the file containing the best crossover points (e.g., xo.txt)
     ./run_schema.sh xo.txt
 7) Step 6 will create two files: 1) energies.txt - this will contain all possible combination of chimeras and their E and m score, 2) Chimera_sequences.fasta - this contains the chimera sequence
