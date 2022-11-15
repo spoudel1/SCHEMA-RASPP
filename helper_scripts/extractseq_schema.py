@@ -28,9 +28,7 @@ for line in msafile:
             count+=1
         else:
             msa[line_split[0]]+=line_split[1]
-#print('Seq in fasta format:')
-#print(msa)
-#print(msa_order)
+chim_keys="-".join(k for k in msa.keys())
 disrupte=[]
 clones=[]
 for word in chimerafile:
@@ -42,41 +40,27 @@ for word in chimerafile:
 
 def getseq(names):
     present=0
-#    print(names,'pairs')
     msa_seqs=list(msa.values())
     chimera=''
     clone_index=0
     seqpos=0
-#    print(names[5],'names', crosspoint[4])
     for y in range(0, len(msa_seqs[0])):
         if not seqpos == crosspoint[clone_index]:
-         #   print("first",msa_seqs[int(names[clone_index])-1][y])
             chimera+=(msa_seqs[int(names[clone_index])-1][y])
-          #  print(clone_index, names[clone_index])
         else:
-           # print("second",msa_seqs[int(names[clone_index])-1][y])
             chimera+=(msa_seqs[int(names[clone_index])-1][y])
-          #  print("error here")
             if clone_index<(len(names)-2):
                 clone_index+=1
         seqpos+=1
-#        print(crosspoint[clone_index],'and ', seqpos, ' what ',clone_index, ' len ',len(names))
-#    print ('chimera',chimera)
     return chimera
 average_disrupte=statistics.mean(disrupte)
 stdev_disrupte=statistics.stdev(disrupte)
-min_score=average_disrupte-stdev_disrupte
-max_score=average_disrupte+stdev_disrupte
 #print(min_score,'score',max_score)
 for ts in range(0,len(clones)):
     if disrupte[ts]>average_disrupte-stdev_disrupte and disrupte[ts]<average_disrupte+stdev_disrupte:
         chimera_seq=getseq(clones[ts])
         chimera_seq_filter=chimera_seq.replace("-","")
-#        print("getting seq of: ",clones[ts])
-#        print(chimera_seq, 'after', chimera_seq_filter)
-        outputfile.write(">PS1165-Chimera_seq"+str(ts)+'\n'+chimera_seq_filter+'\n')
+        if not len(chimera_seq_filter)<60:  #this will restrict chimera length to a minimum of 60. Uncomment if you don't want length restriction.
+            outputfile.write(">"+chim_keys+"-"+clones[ts]+"-Chimera_seq"+str(ts)+'\n'+chimera_seq_filter+'\n')
        # input()
 print('Average distribution: ',average_disrupte,' and Standard deviation: ',stdev_disrupte, ' Total number of clones: ', len(clones))
-#print(word_split)
-#for key,value in msa.items():
-#    outputfile.write(">"+key+'\n'+value+'\n')
