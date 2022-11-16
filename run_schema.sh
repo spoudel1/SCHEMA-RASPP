@@ -7,7 +7,7 @@ if [ "$#" != "1" ]; then
 	mv "${binder}_1.pdb" $2
 	python2 $SCHEMADIR/schemacontacts.py -pdb $2 -msa clustal.aln -o contacts.txt
 	python2 $SCHEMADIR/rasppcurve.py -msa clustal.aln -con contacts.txt -xo $3 -o opt.txt -min 4
-	python /shared/Software/SCHEMA-RASPP/helper_scripts/extract_averagecross.py opt.txt
+	python $SCHEMADIR/helper_scripts/extract_averagecross.py opt.txt
 	python2 $SCHEMADIR/schemaenergy.py -msa clustal.aln -con contacts.txt -xo Average_xo.txt -o energies.txt -E -m
 	python $SCHEMADIR/helper_scripts/extractseq_schema.py Average_xo.txt clustal.aln energies.txt
 else
