@@ -18,7 +18,7 @@ for xo in xofile:
 #allowed_chars = set("ACDEFGHIKLMNPQRSTVWY0123456789")
 count=1
 for line in msafile:
-    if ":" in line or "." in line:
+    if ":" in line or "." in line or '*' in line:
         continue
     line_split=line.strip().split()
     if line_split:
