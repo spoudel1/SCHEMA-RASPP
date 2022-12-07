@@ -5,19 +5,14 @@ import sys
 import statistics
 import argparse
 
-#xofile=open(sys.argv[1],'r')
-#msafile=open(sys.argv[2],'r')
-#ntfile=open(sys.argv[3],'r')
-#chimerafile=open(sys.argv[4],'r')
-#outputfile=open(sys.argv[4],'w')
-#outputfile=open("Chimera_sequences.fasta",'w')
-#ntoutputfile=open("Chimera_sequences_nt.fasta","w")
 
 msa={}
 nt_seq=[]
 msa_order={}
 finalmsa=[]
 crosspoint=[]
+
+#adding gaps in nt seq
 def putgapsinnt(ntseq,nindex):
     new_ntset=''
     nt_count=0
@@ -31,6 +26,7 @@ def putgapsinnt(ntseq,nindex):
                 new_ntset+='-'
     return new_ntset
 
+#getting the seq based on crosspoint
 def getseq(names, num, crosspoint):
     present=0
     chimera=''
@@ -79,6 +75,8 @@ def getseq(names, num, crosspoint):
                 if clone_index<(len(names)-2):
                     clone_index+=1
         return chimera
+
+#main loop
 def main(argv):
     #Parse command line arguments
     parser = argparse.ArgumentParser()
@@ -97,12 +95,7 @@ def main(argv):
         ntfile=open(args.ntseq,'r')
         ntoutputfile=open(args.nt_output,"w")
     chimerafile=open(args.combos,'r')
-    #outputfile=open(sys.argv[4],'w')
     outputfile=open(args.output,'w')
-#    crosspoint=[]
-#    msa={}
-#    nt_seq=[]
-#    msa_order={}
 
     #reading the crossover file and storing the positions
     for xo in xofile:
@@ -125,27 +118,13 @@ def main(argv):
                 count+=1
             else:
                 msa[line_split[0]]+=line_split[1]
-  #  finalmsa=[]
-    tcount=1
-
     #restoring the msa in the same order as the input
+    tcount=1
     for keys, val in msa_order.items():
         if str(val)==str(tcount):
             finalmsa.append(msa[keys])
             tcount+=1
     msa_num=[] #stores msa numbering to actual sequence number
-    
-#    #for key,value in msa.items():
-#    for fm in finalmsa:
-#            num=[]
-#            count=0
-#            for v in range(0, len(fm)):
-#                if not fm[v]=='-':
-#                    correspond_score=str(v)+'#'+str(count)
-#                    num.append(correspond_score)
-#                    count+=1
-#            msa_num.append(num)
-    #print(msa_num, 'msa num')
     
     #reading nucleotide sequence
     if args.ntseq:
@@ -167,7 +146,8 @@ def main(argv):
         nt_seq.append(putgapsinnt(sequences,int(ncount)))
         #print("ntfile")
         #print(nt_seq)
-    chim_keys="-".join(k for k in msa.keys())
+    
+    chim_keys="-".join(k for k in msa.keys()) #get protein id to make chimera from
     disrupte=[]
     clones=[]
     for word in chimerafile:
@@ -179,6 +159,8 @@ def main(argv):
     average_disrupte=statistics.mean(disrupte)
     stdev_disrupte=statistics.stdev(disrupte)
     #print(min_score,'score',max_score)
+
+    #printing chimera seqs
     for ts in range(0,len(clones)):
         if disrupte[ts]>=average_disrupte-stdev_disrupte and disrupte[ts]<=average_disrupte+stdev_disrupte:
             if args.ntseq:
