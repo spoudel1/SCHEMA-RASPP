@@ -57,7 +57,7 @@ average_disrupte=statistics.mean(disrupte)
 stdev_disrupte=statistics.stdev(disrupte)
 #print(min_score,'score',max_score)
 for ts in range(0,len(clones)):
-    if disrupte[ts]>average_disrupte-stdev_disrupte and disrupte[ts]<average_disrupte+stdev_disrupte:
+    if disrupte[ts]>=average_disrupte-stdev_disrupte and disrupte[ts]<=average_disrupte+stdev_disrupte:
         chimera_seq=getseq(clones[ts])
         chimera_seq_filter=chimera_seq.replace("-","")
         if not len(chimera_seq_filter)<60:  #this will restrict chimera length to a minimum of 60. Uncomment if you don't want length restriction.
