@@ -33,29 +33,35 @@ def getseq(names, num, crosspoint):
     chimera_nt=''
     clone_index=0
     copying=False
+    lastrun=0
     if num==2:
+        lastrun=0
         for y in range(0, len(finalmsa[0])):
             if not y == crosspoint[clone_index]:
-                if clone_index==len(crosspoint)-1:
+                if lastrun==1:
                     chimera+=(finalmsa[int(names[clone_index+1])-1][y])
                 else:
                      chimera+=(finalmsa[int(names[clone_index])-1][y])
             else:
+                if clone_index==len(crosspoint)-1:
+                    lastrun=1
                 chimera+=(finalmsa[int(names[clone_index])-1][y])
                 if clone_index<(len(names)-2):
                     clone_index+=1
-
         clone_index=0
+        lastrun=0
         #for nucleotide
         for y in range(0, len(nt_seq[0]),3):
             if not y == int(crosspoint[clone_index])*3:
-                if clone_index==len(crosspoint)-1:
+                if lastrun==1:
                     for i in range(0,3):
                         chimera_nt+=(nt_seq[int(names[clone_index+1])-1][y+i])
                 else:
                     for i in range(0,3):
                         chimera_nt+=(nt_seq[int(names[clone_index])-1][y+i])
             else:
+                if clone_index==len(crosspoint)-1:
+                    lastrun=1
                 for i in range(0,3):
                     chimera_nt+=(nt_seq[int(names[clone_index])-1][y+i])
                 if clone_index<(len(names)-2):
@@ -66,11 +72,13 @@ def getseq(names, num, crosspoint):
     elif num==1:
         for y in range(0, len(finalmsa[0])):
             if not y == crosspoint[clone_index]:
-                if clone_index==len(crosspoint)-1:
+                if lastrun==1:
                     chimera+=(finalmsa[int(names[clone_index+1])-1][y])
                 else:
                      chimera+=(finalmsa[int(names[clone_index])-1][y])
             else:
+                if clone_index==len(crosspoint)-1:
+                    lastrun=1
                 chimera+=(finalmsa[int(names[clone_index])-1][y])
                 if clone_index<(len(names)-2):
                     clone_index+=1
