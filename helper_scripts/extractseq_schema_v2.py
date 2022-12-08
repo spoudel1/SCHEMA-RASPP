@@ -177,7 +177,7 @@ def main(argv):
             else:
                 chimera_seq=getseq(clones[ts],1, crosspoint)
             chimera_seq_filter=chimera_seq.replace("-","")
-            if not len(chimera_seq_filter)<4:  #this will restrict chimera length to a minimum of 60. Uncomment if you don't want length restriction.
+            if not len(chimera_seq_filter)<60:  #this will restrict chimera length to a minimum of 60. Uncomment if you don't want length restriction.
                 outputfile.write(">"+chim_keys+"-"+clones[ts]+"-Chimera_seq"+str(ts)+'\n'+chimera_seq_filter+'\n')
                 if args.ntseq:
                     ntoutputfile.write(">"+chim_keys+"_"+clones[ts]+"-Chimera_seq"+str(ts)+'\n'+nt_chimera_filter+'\n')
